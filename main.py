@@ -34,8 +34,8 @@ class grid():
                             if self.field[x][y] == player:
                                 count += 1
                 if count == 3:
-                    return player
-        return False
+                    return player, check
+        return False, False
     
     def clear_field(self):
         for x in range(3):
@@ -82,6 +82,7 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
+                ttt.clear_field()
                 print("reset")
                 winner = ""
  
@@ -98,10 +99,9 @@ while not done:
         if pressed and buttons[0] == 0:
             pressed = False
 
-        check = ttt.check()
-        if check != False:
-            ttt.clear_field()
-            winner = check
+        player, check = ttt.check()
+        if player != False:
+            winner = player
             ttt.player = winner
 
  
@@ -128,7 +128,16 @@ while not done:
         pygame.draw.line(screen,GREY,[0,y*cell_size],[size,y*cell_size],5)
 
     if winner != "":
-        screen.blit(won_images[winner], [0,0])
+        x_win = []
+        y_win = []
+        for x in range(3):
+            for y in range(3):
+                if check[x][y]:
+                    x_win.append(x)
+                    y_win.append(y)
+        for win in range(len(x_win)-1):
+            pygame.draw.line(screen,RED,[(x_win[win]*cell_size)+cell_size/2, (y_win[win]*cell_size)+cell_size/2], [(x_win[win+1]*cell_size)+cell_size/2, (y_win[win+1]*cell_size)+cell_size/2],5)
+        #screen.blit(won_images[winner], [0,0])
  
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
