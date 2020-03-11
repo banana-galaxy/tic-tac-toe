@@ -137,7 +137,6 @@ while not done:
                     y_win.append(y)
         for win in range(len(x_win)-1):
             pygame.draw.line(screen,RED,[(x_win[win]*cell_size)+cell_size/2, (y_win[win]*cell_size)+cell_size/2], [(x_win[win+1]*cell_size)+cell_size/2, (y_win[win+1]*cell_size)+cell_size/2],5)
-        #screen.blit(won_images[winner], [0,0])
  
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
