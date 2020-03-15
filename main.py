@@ -42,6 +42,11 @@ class grid():
             for y in range(3):
                 self.field[x][y] = 0
 
+    def isFull(self, x, y):
+        if self.field[x][y] != 0:
+            return True
+        return False
+
 
 ttt = grid()
  
@@ -94,8 +99,9 @@ while not done:
 
         if buttons[0] and pressed == False:
             pressed = True
-            ttt.turn(grid_pos[0], grid_pos[1])
-            ttt.change_player()
+            if not ttt.isFull(grid_pos[0], grid_pos[1]):
+                ttt.turn(grid_pos[0], grid_pos[1])
+                ttt.change_player()
         if pressed and buttons[0] == 0:
             pressed = False
 
